@@ -30,7 +30,24 @@ void autoButfunc() {
         } else if (digitalRead(BUTTON3) == ACTIVE) {
           autoBut = 7; //GO
         } else if (digitalRead(BUTTON4) == ACTIVE) {
-          autoBut = 8; //GO
+          autoBut = 8;
+          /*Новые кнопки*/
+        } else if (digitalRead(BUTTON7) == !ACTIVE) { //Или если кнопка7 вкл (тумблер в положении вкл)
+          autoBut = 11; /*тогда переходим на кейс 11 */
+        } else if (digitalRead(BUTTON8) == !ACTIVE) { //Или если кнопка8 вкл (тумблер в положении вкл)
+          autoBut = 12; /*тогда переходим на кейс 12 */
+        } else if (digitalRead(BUTTON9) == !ACTIVE) { //Или если кнопка9 вкл (тумблер в положении вкл)
+          autoBut = 13; /*тогда переходим на кейс 13 */
+        } else if (digitalRead(BUTTON10) == !ACTIVE) { //Или если кнопка10 вкл (тумблер в положении вкл)
+          autoBut = 14; /*тогда переходим на кейс 14 */
+        } else if (digitalRead(BUTTON11) == !ACTIVE) { //Или если кнопка11 вкл (тумблер в положении вкл)
+          autoBut = 15; /*тогда переходим на кейс 15 */
+        } else if (digitalRead(BUTTON12) == !ACTIVE) { //Или если кнопка12 вкл (тумблер в положении вкл)
+          autoBut = 16; /*тогда переходим на кейс 16 */
+        } else if (digitalRead(BUTTON13) == !ACTIVE) { //Или если кнопка13 вкл (тумблер в положении вкл)
+          autoBut = 17; /*тогда переходим на кейс 17 */
+        } else if (digitalRead(BUTTON14) == !ACTIVE) { //Или если кнопка14 вкл (тумблер в положении вкл)
+          autoBut = 18; /*тогда переходим на кейс 18 *///GO
         }//if any Button
       }//if ms
       break;
@@ -56,7 +73,8 @@ void autoButfunc() {
 #ifdef DEBUG
             Serial.println("long 1 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -96,7 +114,8 @@ void autoButfunc() {
 #ifdef DEBUG
             Serial.println("long 2 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -136,7 +155,8 @@ void autoButfunc() {
 #ifdef DEBUG
             Serial.println("long 3 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -176,7 +196,8 @@ void autoButfunc() {
 #ifdef DEBUG
             Serial.println("long 4 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -213,6 +234,342 @@ void autoButfunc() {
           butcount = 0;
           autoBut = 99; // GO на ожидание отпускания кнопок
         }
+      }//if ms
+      break;
+    /*НОВЫЕ КЕЙСЫ!!!*/
+    /* Создаем новый кейс9. для Ночника 1 (кнопка 5). С аналогичным режимом как у кнопок*/
+    case 9:
+      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON5) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statenightlight1 = !statenightlight1; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс10. для Ночника 2 (кнопка 6). С аналогичным режимом как у кнопок*/
+    case 10:
+      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON6) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statenightlight2 = !statenightlight2; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс11. Для uvlight (кнопка 7). С аналогичным режимом как у кнопок*/
+    case 11:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON7) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            stateuvlight = !stateuvlight; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс12. Для discoball (кнопка 8). С аналогичным режимом как у кнопок*/
+    case 12:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON8) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statediscoball = !statediscoball; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс13. Для strobeRB (кнопка 9). С аналогичным режимом как у кнопок*/
+    case 13:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON9) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statestrobeRB = !statestrobeRB; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+
+
+    /* Создаем новый кейс14. Для strobeW (кнопка 10). С аналогичным режимом как у кнопок*/
+    case 14:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON10) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statestrobeW = !statestrobeW; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс15. Для lightmusic1 (кнопка 11). С аналогичным режимом как у кнопок*/
+    case 15:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON11) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statelightmusic1 = !statelightmusic1; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+
+    /* Создаем новый кейс16. Для lightmusic2 (кнопка 12). С аналогичным режимом как у кнопок*/
+    case 16:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON12) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statelightmusic2 = !statelightmusic2; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+
+    /* Создаем новый кейс17. Для rgbwstrip2 (кнопка 13). С аналогичным режимом как у кнопок*/
+    case 17:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON13) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            statergbwstrip2 = !statergbwstrip2; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
+      }//if ms
+      break;
+
+    /* Создаем новый кейс18. Для rezerv (кнопка 14). С аналогичным режимом как у кнопок*/
+    case 18:
+      if ((ms - butMs) > 30) {
+        butMs = ms;
+        if (digitalRead(BUTTON14) == ACTIVE) {
+          if (butcount < 50) {
+            butcount++;
+          } else { // зафиксировано длительное удержание кнопки
+            // выключаем весь свет
+#ifdef DEBUG
+            Serial.println("long 4 fixed");
+#endif
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
+                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+
+            makelamps(); //включим лампы и подсветку в новое состояние
+            butcount = 0;
+            autoBut = 99; // GO на ожидание отпускания кнопок
+          }
+        } else { //BUT 2 released
+          if (butcount) {
+#ifdef DEBUG
+            Serial.println("short 3 fixed");
+#endif
+            butcount = 0;
+            staterezerv = !staterezerv; // инвертируем состояние света
+            makelamps(); //включим лампы и подсветку в новое состояние
+          }
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }// no buttons pressed
       }//if ms
       break;
 
@@ -254,13 +611,14 @@ void autoButfunc() {
       }//if ms
       break;
 
-
-
     case 99:
       // ждем пока все кнопки будут отпущены
       if ((ms - butMs) > 20) {
         butMs = ms;
-        if ((digitalRead(BUTTON1) != ACTIVE) && (digitalRead(BUTTON2) != ACTIVE) && (digitalRead(BUTTON3) != ACTIVE) && (digitalRead(BUTTON4) != ACTIVE)) {
+        if ((digitalRead(BUTTON1) != ACTIVE) && (digitalRead(BUTTON2) != ACTIVE) && (digitalRead(BUTTON3) != ACTIVE) && (digitalRead(BUTTON4) != ACTIVE) &&
+            (digitalRead(BUTTON5) != ACTIVE) && (digitalRead(BUTTON6) != ACTIVE) && (digitalRead(BUTTON7) != ACTIVE) && (digitalRead(BUTTON8) != ACTIVE) &&
+            (digitalRead(BUTTON9) != ACTIVE) && (digitalRead(BUTTON10) != ACTIVE) && (digitalRead(BUTTON11) != ACTIVE) && (digitalRead(BUTTON12) != ACTIVE) &&
+            (digitalRead(BUTTON13) != ACTIVE) && (digitalRead(BUTTON14) != ACTIVE)) {
           if (!butcount) {
             butcount++;
           } else {
@@ -293,13 +651,55 @@ void makelamps() {
   else digitalWrite(LAMP2, RELAY_OFF);
   if (statelamp3) digitalWrite(LAMP3, RELAY_ON);
   else digitalWrite(LAMP3, RELAY_OFF);
+
   if (statergbwstrip) digitalWrite(RGBWSTRIP, RELAY_ON);
   else digitalWrite(RGBWSTRIP, RELAY_OFF);
+  /* Добавляем одновременное включение и выключение ночников при нажатии кнопки 3*/
+  if (statelamp3) digitalWrite(LAMP3 && nightlight1 && nightlight2, RELAY_ON);
+  else digitalWrite(LAMP3 && nightlight1 && nightlight2, RELAY_OFF);
+  if (statergbwstrip) digitalWrite(RGBWSTRIP, RELAY_ON);
+  else digitalWrite(RGBWSTRIP, RELAY_OFF);
+
+  /* Добавим работу остальных реле, управляемые кнопками*/
+  if (statenightlight1) digitalWrite(nightlight1, RELAY_ON);
+  else digitalWrite(nightlight1, RELAY_OFF);
+  if (statenightlight2) digitalWrite(nightlight2, RELAY_ON);
+  else digitalWrite(nightlight2, RELAY_OFF);
+  if (stateuvlight) digitalWrite(uvlight, RELAY_ON);
+  else digitalWrite(uvlight, RELAY_OFF);
+  if (statediscoball) digitalWrite(discoball, RELAY_ON);
+  else digitalWrite(discoball, RELAY_OFF);
+  if (statestrobeRB) digitalWrite(strobeRB, RELAY_ON);
+  else digitalWrite(strobeRB, RELAY_OFF);
+  if (statestrobeW) digitalWrite(strobeW, RELAY_ON);
+  else digitalWrite(strobeW, RELAY_OFF);
+  if (statelightmusic1) digitalWrite(lightmusic1, RELAY_ON);
+  else digitalWrite(lightmusic1, RELAY_OFF);
+  if (statelightmusic2) digitalWrite(lightmusic2, RELAY_ON);
+  else digitalWrite(lightmusic2, RELAY_OFF);
+  if (statergbwstrip2) digitalWrite(rgbwstrip2, RELAY_ON);
+  else digitalWrite(rgbwstrip2, RELAY_OFF);
+  if (staterezerv) digitalWrite(rezerv, RELAY_ON);
+  else digitalWrite(rezerv, RELAY_OFF);
+
   //включаем подсветку ламп как надо
   digitalWrite(LEDLAMP1, (!statelamp1));
   digitalWrite(LEDLAMP2, (!statelamp2));
   digitalWrite(LEDLAMP3, (!statelamp3));
   digitalWrite(LEDRGBWSTRIP, (!statergbwstrip));
+
+  /* Добавил подсветку*/
+  digitalWrite(LEDuvlight, (!stateuvlight));
+  digitalWrite(LEDdiscoball, (!statediscoball));
+  digitalWrite(LEDstrobeRB, (!statestrobeRB));
+  digitalWrite(LEDstrobeW, (!statestrobeW));
+  digitalWrite(LEDlightmusic1, (!statelightmusic1));
+  digitalWrite(LEDlightmusic2, (!statelightmusic2));
+  digitalWrite(LEDrgbwstrip2, (!statergbwstrip2));
+  digitalWrite(LEDrezerv, (!staterezerv));
+
+
+
 }//void makelamps()
 
 // для мигания подсветкой когда с клапаном что то делаем
