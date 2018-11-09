@@ -24,29 +24,47 @@ void autoButfunc() {
       if ((ms - butMs) > 10) {
         butMs = ms;
         if (digitalRead(BUTTON1) == ACTIVE) {
+          Serial.println("knopka 1");
           autoBut = 5; //GO
         } else if (digitalRead(BUTTON2) == ACTIVE) {
+          Serial.println("knopka 2");
           autoBut = 6; //GO
         } else if (digitalRead(BUTTON3) == ACTIVE) {
+          Serial.println("knopka 3");
           autoBut = 7; //GO
         } else if (digitalRead(BUTTON4) == ACTIVE) {
+          Serial.println("knopka 4");
           autoBut = 8;
+
           /*Новые кнопки*/
-        } else if (digitalRead(BUTTON7) == !ACTIVE) { //Или если кнопка7 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON5) == ACTIVE) {
+          Serial.println("knopka 5");
+          autoBut = 9;
+        } else if (digitalRead(BUTTON6) == ACTIVE) {
+          Serial.println("knopka 6");
+          autoBut = 10;
+        } else if (digitalRead(BUTTON7) == !ACTIVE) { //Или если кнопка7 вкл
+          Serial.println("knopka 7");
           autoBut = 11; /*тогда переходим на кейс 11 */
-        } else if (digitalRead(BUTTON8) == !ACTIVE) { //Или если кнопка8 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON8) == !ACTIVE) { //Или если кнопка8 вкл
+          Serial.println("knopka 8");
           autoBut = 12; /*тогда переходим на кейс 12 */
-        } else if (digitalRead(BUTTON9) == !ACTIVE) { //Или если кнопка9 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON9) == !ACTIVE) { //Или если кнопка9 вкл
+          Serial.println("knopka 9");
           autoBut = 13; /*тогда переходим на кейс 13 */
-        } else if (digitalRead(BUTTON10) == !ACTIVE) { //Или если кнопка10 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON10) == !ACTIVE) { //Или если кнопка10 вкл
+          Serial.println("knopka 10");
           autoBut = 14; /*тогда переходим на кейс 14 */
-        } else if (digitalRead(BUTTON11) == !ACTIVE) { //Или если кнопка11 вкл (тумблер в положении вкл)
-          autoBut = 15; /*тогда переходим на кейс 15 */
-        } else if (digitalRead(BUTTON12) == !ACTIVE) { //Или если кнопка12 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON11) == !ACTIVE) { //Или если кнопка11 вкл
+          Serial.println("knopka 11");autoBut = 15; /*тогда переходим на кейс 15 */
+        } else if (digitalRead(BUTTON12) == !ACTIVE) { //Или если кнопка12 вкл
+          Serial.println("knopka 12");
           autoBut = 16; /*тогда переходим на кейс 16 */
-        } else if (digitalRead(BUTTON13) == !ACTIVE) { //Или если кнопка13 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON13) == !ACTIVE) { //Или если кнопка13 вкл
+          Serial.println("knopka 13");
           autoBut = 17; /*тогда переходим на кейс 17 */
-        } else if (digitalRead(BUTTON14) == !ACTIVE) { //Или если кнопка14 вкл (тумблер в положении вкл)
+        } else if (digitalRead(BUTTON14) == !ACTIVE) { //Или если кнопка14 вкл
+          Serial.println("knopka 14");
           autoBut = 18; /*тогда переходим на кейс 18 *///GO
         }//if any Button
       }//if ms
@@ -63,7 +81,7 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 60; //GO
 #ifdef DEBUG
-            Serial.println("1 & 4 but noticed");
+            Serial.println("Knopka1 + Knopka4");
 #endif
           }// 1 & 4
           if (butcount < 50) {
@@ -71,7 +89,7 @@ void autoButfunc() {
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 1 fixed");
+            Serial.println("Dolgoe Nazhatie - Viklyuchit ves' svet");
 #endif
             statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
                 statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
@@ -104,7 +122,7 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 80; //GO на попытку ручного переключения клапана
 #ifdef DEBUG
-            Serial.println("2 & 3 but noticed");
+            Serial.println("Knopka2+Knopka3");
 #endif
           }// 2 & 3
           if (butcount < 50) {
@@ -215,27 +233,7 @@ void autoButfunc() {
         }// no buttons pressed
       }//if ms
       break;
-    case 60:
-      // одновременно нажаты 1 и 4, меняем klapanmode
-      if ((ms - butMs) > 100) {
-        butMs = ms;
-        if ((digitalRead(BUTTON1) == ACTIVE) && (digitalRead(BUTTON4) == ACTIVE)) {
-          if ( butcount < 30) {
-            butcount ++;
-          } else { // обе кнопки удерживались 3 секунды
-            butcount = 0;
-#ifdef DEBUG
-            Serial.println("inverting klapanmode");
-#endif
-            klapanmode = !klapanmode; // ИНВЕРТИРУЕМ РЕЖИМ РАБОТЫ КЛАПАНА
-            autoBut = 99; //GO на ожидание опускания
-          }//1 & 4 fixed
-        } else { // недодержали обе кнопки
-          butcount = 0;
-          autoBut = 99; // GO на ожидание отпускания кнопок
-        }
-      }//if ms
-      break;
+
     /*НОВЫЕ КЕЙСЫ!!!*/
     /* Создаем новый кейс9. для Ночника 1 (кнопка 5). С аналогичным режимом как у кнопок*/
     case 9:
@@ -573,6 +571,28 @@ void autoButfunc() {
       }//if ms
       break;
 
+    case 60:
+      // одновременно нажаты 1 и 4, меняем klapanmode
+      if ((ms - butMs) > 100) {
+        butMs = ms;
+        if ((digitalRead(BUTTON1) == ACTIVE) && (digitalRead(BUTTON4) == ACTIVE)) {
+          if ( butcount < 30) {
+            butcount ++;
+          } else { // обе кнопки удерживались 3 секунды
+            butcount = 0;
+#ifdef DEBUG
+            Serial.println("inverting klapanmode");
+#endif
+            klapanmode = !klapanmode; // ИНВЕРТИРУЕМ РЕЖИМ РАБОТЫ КЛАПАНА
+            autoBut = 99; //GO на ожидание опускания
+          }//1 & 4 fixed
+        } else { // недодержали обе кнопки
+          butcount = 0;
+          autoBut = 99; // GO на ожидание отпускания кнопок
+        }
+      }//if ms
+      break;
+
     case 80:
       // одновременно нажаты 2 и 3 =>  Если режим управления клапаном ручной, позволяем изменить состояние клапана
       if ((ms - butMs) > 100) {
@@ -645,42 +665,100 @@ void autoButfunc() {
 // функция переключения состояний ламп
 void makelamps() {
   // включаем лампы как надо
-  if (statelamp1) digitalWrite(LAMP1, RELAY_ON);
-  else digitalWrite(LAMP1, RELAY_OFF);
-  if (statelamp2) digitalWrite(LAMP2, RELAY_ON);
-  else digitalWrite(LAMP2, RELAY_OFF);
-  if (statelamp3) digitalWrite(LAMP3, RELAY_ON);
-  else digitalWrite(LAMP3, RELAY_OFF);
+  if (statelamp1) {
+    digitalWrite(LAMP1, RELAY_ON);
+  }
+  else {
+    digitalWrite(LAMP1, RELAY_OFF);
+  }
+  if (statelamp2) {
+    digitalWrite(LAMP2, RELAY_ON);
+  }
+  else {
+    digitalWrite(LAMP2, RELAY_OFF);
+  }
 
-  if (statergbwstrip) digitalWrite(RGBWSTRIP, RELAY_ON);
-  else digitalWrite(RGBWSTRIP, RELAY_OFF);
+  if (statergbwstrip) {
+    digitalWrite(RGBWSTRIP, RELAY_ON);
+  }
+  else {
+    digitalWrite(RGBWSTRIP, RELAY_OFF);
+  }
+
   /* Добавляем одновременное включение и выключение ночников при нажатии кнопки 3*/
-  if (statelamp3) digitalWrite(LAMP3 && nightlight1 && nightlight2, RELAY_ON);
-  else digitalWrite(LAMP3 && nightlight1 && nightlight2, RELAY_OFF);
-  if (statergbwstrip) digitalWrite(RGBWSTRIP, RELAY_ON);
-  else digitalWrite(RGBWSTRIP, RELAY_OFF);
+  if (statelamp3) {
+    digitalWrite(LAMP2, RELAY_ON);
+    digitalWrite(nightlight1, RELAY_ON);
+    digitalWrite(nightlight2, RELAY_ON);
+  }//if
+  else {
+    digitalWrite(LAMP2 , RELAY_ON);
+    digitalWrite(nightlight1, RELAY_OFF);
+    digitalWrite(nightlight2, RELAY_OFF);
+  }//else
+
 
   /* Добавим работу остальных реле, управляемые кнопками*/
-  if (statenightlight1) digitalWrite(nightlight1, RELAY_ON);
-  else digitalWrite(nightlight1, RELAY_OFF);
-  if (statenightlight2) digitalWrite(nightlight2, RELAY_ON);
-  else digitalWrite(nightlight2, RELAY_OFF);
-  if (stateuvlight) digitalWrite(uvlight, RELAY_ON);
-  else digitalWrite(uvlight, RELAY_OFF);
-  if (statediscoball) digitalWrite(discoball, RELAY_ON);
-  else digitalWrite(discoball, RELAY_OFF);
-  if (statestrobeRB) digitalWrite(strobeRB, RELAY_ON);
-  else digitalWrite(strobeRB, RELAY_OFF);
-  if (statestrobeW) digitalWrite(strobeW, RELAY_ON);
-  else digitalWrite(strobeW, RELAY_OFF);
-  if (statelightmusic1) digitalWrite(lightmusic1, RELAY_ON);
-  else digitalWrite(lightmusic1, RELAY_OFF);
-  if (statelightmusic2) digitalWrite(lightmusic2, RELAY_ON);
-  else digitalWrite(lightmusic2, RELAY_OFF);
-  if (statergbwstrip2) digitalWrite(rgbwstrip2, RELAY_ON);
-  else digitalWrite(rgbwstrip2, RELAY_OFF);
-  if (staterezerv) digitalWrite(rezerv, RELAY_ON);
-  else digitalWrite(rezerv, RELAY_OFF);
+  if (statenightlight1) {
+    digitalWrite(nightlight1, RELAY_ON);
+  }
+  else {
+    digitalWrite(nightlight1, RELAY_OFF);
+  }
+  if (statenightlight2) {
+    digitalWrite(nightlight2, RELAY_ON);
+  }
+  else {
+    digitalWrite(nightlight2, RELAY_OFF);
+  }
+  if (stateuvlight) {
+    digitalWrite(uvlight, RELAY_ON);
+  }
+  else {
+    digitalWrite(uvlight, RELAY_OFF);
+  }
+  if (statediscoball) {
+    digitalWrite(discoball, RELAY_ON);
+  }
+  else {
+    digitalWrite(discoball, RELAY_OFF);
+  }
+  if (statestrobeRB) {
+    digitalWrite(strobeRB, RELAY_ON);
+  }
+  else {
+    digitalWrite(strobeRB, RELAY_OFF);
+  }
+  if (statestrobeW) {
+    digitalWrite(strobeW, RELAY_ON);
+  }
+  else {
+    digitalWrite(strobeW, RELAY_OFF);
+  }
+  if (statelightmusic1) {
+    digitalWrite(lightmusic1, RELAY_ON);
+  }
+  else {
+    digitalWrite(lightmusic1, RELAY_OFF);
+  }
+  if (statelightmusic2) {
+    digitalWrite(lightmusic2, RELAY_ON);
+  }
+  else {
+    digitalWrite(lightmusic2, RELAY_OFF);
+  }
+  if (statergbwstrip2) {
+    digitalWrite(rgbwstrip2, RELAY_ON);
+  }
+  else {
+    digitalWrite(rgbwstrip2, RELAY_OFF);
+  }
+  if (staterezerv) {
+    digitalWrite(rezerv, RELAY_ON);
+  }
+  else {
+    digitalWrite(rezerv, RELAY_OFF);
+  }
 
   //включаем подсветку ламп как надо
   digitalWrite(LEDLAMP1, (!statelamp1));

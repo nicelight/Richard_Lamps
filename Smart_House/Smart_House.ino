@@ -1,3 +1,5 @@
+#include <SoftwareSerial.h>
+
 
 /*
    Алгоритм работы
@@ -179,7 +181,7 @@ void setup() {
   pinMode(RGBWSTRIP, OUTPUT);
   /*  Новые Реле:*/
   pinMode(nightlight1, OUTPUT);              /* Реле: Ночник для чтения 1 */
-  pinMode(nightlight2 , OUTPUT);             /* Реле: Ночник для чтения 2 */
+  pinMode(nightlight2, OUTPUT);             /* Реле: Ночник для чтения 2 */
   pinMode(uvlight, OUTPUT);                  /* Реле: Ультрафиолетовая лампа */
   pinMode(discoball, OUTPUT);                /* Реле: Диско-Шар */
   pinMode(strobeRB, OUTPUT);                 /* Реле: Строб синий + красный */
