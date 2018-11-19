@@ -24,55 +24,84 @@ void autoButfunc() {
       if ((ms - butMs) > 10) {
         butMs = ms;
         if (digitalRead(BUTTON1) == ACTIVE) {
-          Serial.println("knopka 1");
+#ifdef DEBUG
+          Serial.println("KNOPKA1");
+#endif
           autoBut = 5; //GO
         } else if (digitalRead(BUTTON2) == ACTIVE) {
-          Serial.println("knopka 2");
+#ifdef DEBUG
+          Serial.println("KNOPKA2");
+#endif
           autoBut = 6; //GO
         } else if (digitalRead(BUTTON3) == ACTIVE) {
-          Serial.println("knopka 3");
+#ifdef DEBUG
+          Serial.println("KNOPKA3");
+#endif
           autoBut = 7; //GO
         } else if (digitalRead(BUTTON4) == ACTIVE) {
-          Serial.println("knopka 4");
+#ifdef DEBUG
+          Serial.println("KNOPKA4");
+#endif
           autoBut = 8;
-
           /*Новые кнопки*/
         } else if (digitalRead(BUTTON5) == ACTIVE) {
-          Serial.println("knopka 5");
+#ifdef DEBUG
+          Serial.println("KNOPKA5");
+#endif
           autoBut = 9;
         } else if (digitalRead(BUTTON6) == ACTIVE) {
-          Serial.println("knopka 6");
+#ifdef DEBUG
+          Serial.println("KNOPKA6");
+#endif
           autoBut = 10;
-        } else if (digitalRead(BUTTON7) == !ACTIVE) { //Или если кнопка7 вкл
-          Serial.println("knopka 7");
+        } else if (digitalRead(BUTTON7) == ACTIVE) { //Или если кнопка7 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA7");
+#endif
           autoBut = 11; /*тогда переходим на кейс 11 */
-        } else if (digitalRead(BUTTON8) == !ACTIVE) { //Или если кнопка8 вкл
-          Serial.println("knopka 8");
+        } else if (digitalRead(BUTTON8) == ACTIVE) { //Или если кнопка8 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA8");
+#endif
           autoBut = 12; /*тогда переходим на кейс 12 */
-        } else if (digitalRead(BUTTON9) == !ACTIVE) { //Или если кнопка9 вкл
-          Serial.println("knopka 9");
+        } else if (digitalRead(BUTTON9) == ACTIVE) { //Или если кнопка9 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA9");
+#endif
           autoBut = 13; /*тогда переходим на кейс 13 */
-        } else if (digitalRead(BUTTON10) == !ACTIVE) { //Или если кнопка10 вкл
-          Serial.println("knopka 10");
+        } else if (digitalRead(BUTTON10) == ACTIVE) { //Или если кнопка10 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA10");
+#endif
           autoBut = 14; /*тогда переходим на кейс 14 */
-        } else if (digitalRead(BUTTON11) == !ACTIVE) { //Или если кнопка11 вкл
-          Serial.println("knopka 11");autoBut = 15; /*тогда переходим на кейс 15 */
-        } else if (digitalRead(BUTTON12) == !ACTIVE) { //Или если кнопка12 вкл
-          Serial.println("knopka 12");
+        } else if (digitalRead(BUTTON11) == ACTIVE) { //Или если кнопка11 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA11");
+#endif
+          autoBut = 15; /*тогда переходим на кейс 15 */
+        } else if (digitalRead(BUTTON12) == ACTIVE) { //Или если кнопка12 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA12");
+#endif
           autoBut = 16; /*тогда переходим на кейс 16 */
-        } else if (digitalRead(BUTTON13) == !ACTIVE) { //Или если кнопка13 вкл
-          Serial.println("knopka 13");
+        } else if (digitalRead(BUTTON13) == ACTIVE) { //Или если кнопка13 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA13");
+#endif
           autoBut = 17; /*тогда переходим на кейс 17 */
-        } else if (digitalRead(BUTTON14) == !ACTIVE) { //Или если кнопка14 вкл
-          Serial.println("knopka 14");
+        } else if (digitalRead(BUTTON14) == ACTIVE) { //Или если кнопка14 вкл
+#ifdef DEBUG
+          Serial.println("KNOPKA14");
+#endif
           autoBut = 18; /*тогда переходим на кейс 18 *///GO
         }//if any Button
       }//if ms
       break;
+
     case 5:
       // кнопка 1 нажата? Если да, то если нажата еще и кнопка 4, идем на их взаимную обработку
-      // пока кнопка 1 нажата, если больше 30*50 мс, то нажатие длительное - отключаем весь свет
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // пока кнопка 1 нажата, если больше 30*40 мс, то нажатие длительное - отключаем весь свет
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON1) == ACTIVE) {
@@ -81,18 +110,17 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 60; //GO
 #ifdef DEBUG
-            Serial.println("Knopka1 + Knopka4");
+            Serial.println("But1 + But4");
 #endif
           }// 1 & 4
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("Dolgoe Nazhatie - Viklyuchit ves' svet");
+            Serial.println("long 1 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -112,8 +140,8 @@ void autoButfunc() {
       break;
     case 6:
       // кнопка 2 нажата? Если да, то если нажата еще и кнопка 3, идем на их взаимную обработку
-      // пока кнопка 2 нажата, если больше 30*50 мс, то нажатие длительное - отключаем весь свет
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // пока кнопка 2 нажата, если больше 30*40 мс, то нажатие длительное - отключаем весь свет
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON2) == ACTIVE) {
@@ -122,7 +150,7 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 80; //GO на попытку ручного переключения клапана
 #ifdef DEBUG
-            Serial.println("Knopka2+Knopka3");
+            Serial.println("But2+But3");
 #endif
           }// 2 & 3
           if (butcount < 50) {
@@ -132,8 +160,7 @@ void autoButfunc() {
 #ifdef DEBUG
             Serial.println("long 2 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -144,7 +171,21 @@ void autoButfunc() {
             Serial.println("short 2 fixed");
 #endif
             butcount = 0;
-            statelamp2 = !statelamp2; // инвертируем состояние света
+
+            // вариант 1 - включено все - выключаем все
+            if  (statelamp2)  {
+              statelamp2 = 0;
+              statenightlight1 = 0;
+              statenightlight2 = 0;
+              statelightmusic2 = 0;
+            }// if statelamp2
+            else { 
+              statelamp2 = 1;
+              statenightlight1 = 1;
+              statenightlight2 = 1;
+              statelightmusic2 = 1;
+            }//else - (!statelamp2)  
+            
             makelamps(); //включим лампы и подсветку в новое состояние
           }
           autoBut = 99; // GO на ожидание отпускания кнопок
@@ -153,8 +194,8 @@ void autoButfunc() {
       break;
     case 7:
       // кнопка 3 нажата? Если да, то если нажата еще и кнопка 2, идем на их взаимную обработку
-      // пока кнопка 2 нажата, если больше 30*50 мс, то нажатие длительное - отключаем весь свет
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // пока кнопка 2 нажата, если больше 30*40 мс, то нажатие длительное - отключаем весь свет
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON3) == ACTIVE) {
@@ -163,18 +204,17 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 80; //GO на попытку ручного переключения клапана
 #ifdef DEBUG
-            Serial.println("3 & 2 but noticed");
+            Serial.println("But3+But2");
 #endif
           }// 3 & 2
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
             Serial.println("long 3 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -194,8 +234,8 @@ void autoButfunc() {
       break;
     case 8:
       // кнопка 4 нажата? Если да, то если нажата еще и кнопка 1, идем на их взаимную обработку
-      // пока кнопка 4 нажата, если больше 30*50 мс, то нажатие длительное - отключаем весь свет
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // пока кнопка 4 нажата, если больше 30*40 мс, то нажатие длительное - отключаем весь свет
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON4) == ACTIVE) {
@@ -204,18 +244,17 @@ void autoButfunc() {
             butcount = 0;
             autoBut = 60; //GO
 #ifdef DEBUG
-            Serial.println("4 & 1 but noticed");
+            Serial.println("But4+But1");
 #endif
           }// 4 & 1
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
             Serial.println("long 4 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -237,19 +276,18 @@ void autoButfunc() {
     /*НОВЫЕ КЕЙСЫ!!!*/
     /* Создаем новый кейс9. для Ночника 1 (кнопка 5). С аналогичным режимом как у кнопок*/
     case 9:
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON5) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 5 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -258,7 +296,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 5 fixed");
 #endif
             butcount = 0;
             statenightlight1 = !statenightlight1; // инвертируем состояние света
@@ -271,19 +309,18 @@ void autoButfunc() {
 
     /* Создаем новый кейс10. для Ночника 2 (кнопка 6). С аналогичным режимом как у кнопок*/
     case 10:
-      // если кнопку отпустили раньше чем 30*50, нажатие короткое - меняем состояние света
+      // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON6) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 6 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -292,7 +329,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 6 fixed");
 #endif
             butcount = 0;
             statenightlight2 = !statenightlight2; // инвертируем состояние света
@@ -308,15 +345,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON7) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 7 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -325,7 +361,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 7 fixed");
 #endif
             butcount = 0;
             stateuvlight = !stateuvlight; // инвертируем состояние света
@@ -341,15 +377,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON8) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 8 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -358,7 +393,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 8 fixed");
 #endif
             butcount = 0;
             statediscoball = !statediscoball; // инвертируем состояние света
@@ -374,15 +409,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON9) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 9 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -391,7 +425,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 9 fixed");
 #endif
             butcount = 0;
             statestrobeRB = !statestrobeRB; // инвертируем состояние света
@@ -409,15 +443,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON10) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 10 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -426,7 +459,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 10 fixed");
 #endif
             butcount = 0;
             statestrobeW = !statestrobeW; // инвертируем состояние света
@@ -442,15 +475,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON11) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 11 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -459,7 +491,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 11 fixed");
 #endif
             butcount = 0;
             statelightmusic1 = !statelightmusic1; // инвертируем состояние света
@@ -476,15 +508,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON12) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 12 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -493,7 +524,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 12 fixed");
 #endif
             butcount = 0;
             statelightmusic2 = !statelightmusic2; // инвертируем состояние света
@@ -510,15 +541,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON13) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 13 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
 
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
@@ -527,7 +557,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 13 fixed");
 #endif
             butcount = 0;
             statergbwstrip2 = !statergbwstrip2; // инвертируем состояние света
@@ -543,16 +573,14 @@ void autoButfunc() {
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON14) == ACTIVE) {
-          if (butcount < 50) {
+          if (butcount < 40) {
             butcount++;
           } else { // зафиксировано длительное удержание кнопки
             // выключаем весь свет
 #ifdef DEBUG
-            Serial.println("long 4 fixed");
+            Serial.println("long 14 fixed");
 #endif
-            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight =
-                statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
-
+            statelamp1 = statelamp2 = statelamp3 = statergbwstrip  = statenightlight1 = statenightlight2 = stateuvlight = statediscoball = statestrobeRB = statestrobeW = statelightmusic1 = statelightmusic2 = statergbwstrip2 = staterezerv = 0;
             makelamps(); //включим лампы и подсветку в новое состояние
             butcount = 0;
             autoBut = 99; // GO на ожидание отпускания кнопок
@@ -560,7 +588,7 @@ void autoButfunc() {
         } else { //BUT 2 released
           if (butcount) {
 #ifdef DEBUG
-            Serial.println("short 3 fixed");
+            Serial.println("short 14 fixed");
 #endif
             butcount = 0;
             staterezerv = !staterezerv; // инвертируем состояние света
@@ -635,10 +663,7 @@ void autoButfunc() {
       // ждем пока все кнопки будут отпущены
       if ((ms - butMs) > 20) {
         butMs = ms;
-        if ((digitalRead(BUTTON1) != ACTIVE) && (digitalRead(BUTTON2) != ACTIVE) && (digitalRead(BUTTON3) != ACTIVE) && (digitalRead(BUTTON4) != ACTIVE) &&
-            (digitalRead(BUTTON5) != ACTIVE) && (digitalRead(BUTTON6) != ACTIVE) && (digitalRead(BUTTON7) != ACTIVE) && (digitalRead(BUTTON8) != ACTIVE) &&
-            (digitalRead(BUTTON9) != ACTIVE) && (digitalRead(BUTTON10) != ACTIVE) && (digitalRead(BUTTON11) != ACTIVE) && (digitalRead(BUTTON12) != ACTIVE) &&
-            (digitalRead(BUTTON13) != ACTIVE) && (digitalRead(BUTTON14) != ACTIVE)) {
+        if ((digitalRead(BUTTON1) != ACTIVE) && (digitalRead(BUTTON2) != ACTIVE) && (digitalRead(BUTTON3) != ACTIVE) && (digitalRead(BUTTON4) != ACTIVE) && (digitalRead(BUTTON5) != ACTIVE) && (digitalRead(BUTTON6) != ACTIVE) && (digitalRead(BUTTON7) != ACTIVE) && (digitalRead(BUTTON8) != ACTIVE) && (digitalRead(BUTTON9) != ACTIVE) && (digitalRead(BUTTON10) != ACTIVE) && (digitalRead(BUTTON11) != ACTIVE) && (digitalRead(BUTTON12) != ACTIVE) && (digitalRead(BUTTON13) != ACTIVE) && (digitalRead(BUTTON14) != ACTIVE)) {
           if (!butcount) {
             butcount++;
           } else {
@@ -677,7 +702,12 @@ void makelamps() {
   else {
     digitalWrite(LAMP2, RELAY_OFF);
   }
-
+  if (statelamp3) {
+    digitalWrite(LAMP3, RELAY_ON);
+  }//if
+  else {
+    digitalWrite(LAMP3, RELAY_OFF);
+  }//else
   if (statergbwstrip) {
     digitalWrite(RGBWSTRIP, RELAY_ON);
   }
@@ -685,20 +715,7 @@ void makelamps() {
     digitalWrite(RGBWSTRIP, RELAY_OFF);
   }
 
-  /* Добавляем одновременное включение и выключение ночников при нажатии кнопки 3*/
-  if (statelamp3) {
-    digitalWrite(LAMP2, RELAY_ON);
-    digitalWrite(nightlight1, RELAY_ON);
-    digitalWrite(nightlight2, RELAY_ON);
-  }//if
-  else {
-    digitalWrite(LAMP2 , RELAY_ON);
-    digitalWrite(nightlight1, RELAY_OFF);
-    digitalWrite(nightlight2, RELAY_OFF);
-  }//else
-
-
-  /* Добавим работу остальных реле, управляемые кнопками*/
+  //Добавим работу новых реле
   if (statenightlight1) {
     digitalWrite(nightlight1, RELAY_ON);
   }
