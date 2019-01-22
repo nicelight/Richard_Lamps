@@ -177,13 +177,13 @@ void autoButfunc() {
               statelamp2 = 0;
               statenightlight1 = 0;
               statenightlight2 = 0;
-              statelightmusic2 = 0;
+              staterezerv = 0;
             }// if statelamp2
             else {
               statelamp2 = 1;
               statenightlight1 = 1;
               statenightlight2 = 1;
-              statelightmusic2 = 1;
+              staterezerv = 1;
             }//else - (!statelamp2)
 
             makelamps(); //включим лампы и подсветку в новое состояние
@@ -196,6 +196,8 @@ void autoButfunc() {
       // кнопка 3 нажата? Если да, то если нажата еще и кнопка 2, идем на их взаимную обработку
       // пока кнопка 2 нажата, если больше 30*40 мс, то нажатие длительное - отключаем весь свет
       // если кнопку отпустили раньше чем 30*40, нажатие короткое - меняем состояние света
+      
+      
       if ((ms - butMs) > 30) {
         butMs = ms;
         if (digitalRead(BUTTON3) == ACTIVE) {
@@ -225,7 +227,14 @@ void autoButfunc() {
             Serial.println("short 3 fixed");
 #endif
             butcount = 0;
-            statelamp3 = !statelamp3; // инвертируем состояние света
+            if (statelamp3) {
+              statelamp3 = 0; // инвертируем состояние света
+              statergbwstrip2 = 0;
+            }//if
+            else {
+              statelamp3 = 1; // инвертируем состояние света
+              statergbwstrip2 = 1;
+            }//else
             makelamps(); //включим лампы и подсветку в новое состояние
           }
           autoBut = 99; // GO на ожидание отпускания кнопок
@@ -711,64 +720,64 @@ void makelamps() {
 
   //Добавим работу новых реле
   if (statenightlight1) {
-    digitalWrite(nightlight1, RELAY_ON);
+    digitalWrite(NIGHTLIGHT1, RELAY_ON);
   }
   else {
-    digitalWrite(nightlight1, RELAY_OFF);
+    digitalWrite(NIGHTLIGHT1, RELAY_OFF);
   }
   if (statenightlight2) {
-    digitalWrite(nightlight2, RELAY_ON);
+    digitalWrite(NIGHTLIGHT2, RELAY_ON);
   }
   else {
-    digitalWrite(nightlight2, RELAY_OFF);
+    digitalWrite(NIGHTLIGHT2, RELAY_OFF);
   }
   if (stateuvlight) {
-    digitalWrite(uvlight, RELAY_ON);
+    digitalWrite(UVLIGHT, RELAY_ON);
   }
   else {
-    digitalWrite(uvlight, RELAY_OFF);
+    digitalWrite(UVLIGHT, RELAY_OFF);
   }
   if (statediscoball) {
-    digitalWrite(discoball, RELAY_ON);
+    digitalWrite(DISCOBALL, RELAY_ON);
   }
   else {
-    digitalWrite(discoball, RELAY_OFF);
+    digitalWrite(DISCOBALL, RELAY_OFF);
   }
   if (statestrobeRB) {
-    digitalWrite(strobeRB, RELAY_ON);
+    digitalWrite(STROBERB, RELAY_ON);
   }
   else {
-    digitalWrite(strobeRB, RELAY_OFF);
+    digitalWrite(STROBERB, RELAY_OFF);
   }
   if (statestrobeW) {
-    digitalWrite(strobeW, RELAY_ON);
+    digitalWrite(STROBEW, RELAY_ON);
   }
   else {
-    digitalWrite(strobeW, RELAY_OFF);
+    digitalWrite(STROBEW, RELAY_OFF);
   }
   if (statelightmusic1) {
-    digitalWrite(lightmusic1, RELAY_ON);
+    digitalWrite(LIGHTMUSIC1, RELAY_ON);
   }
   else {
-    digitalWrite(lightmusic1, RELAY_OFF);
+    digitalWrite(LIGHTMUSIC1, RELAY_OFF);
   }
   if (statelightmusic2) {
-    digitalWrite(lightmusic2, RELAY_ON);
+    digitalWrite(LIGHTMUSIC2, RELAY_ON);
   }
   else {
-    digitalWrite(lightmusic2, RELAY_OFF);
+    digitalWrite(LIGHTMUSIC2, RELAY_OFF);
   }
   if (statergbwstrip2) {
-    digitalWrite(rgbwstrip2, RELAY_ON);
+    digitalWrite(RGBWSTRIP2, RELAY_ON);
   }
   else {
-    digitalWrite(rgbwstrip2, RELAY_OFF);
+    digitalWrite(RGBWSTRIP2, RELAY_OFF);
   }
   if (staterezerv) {
-    digitalWrite(rezerv, RELAY_ON);
+    digitalWrite(REZERV, RELAY_ON);
   }
   else {
-    digitalWrite(rezerv, RELAY_OFF);
+    digitalWrite(REZERV, RELAY_OFF);
   }
 
   //включаем подсветку ламп как надо
@@ -778,14 +787,14 @@ void makelamps() {
   digitalWrite(LEDRGBWSTRIP, (!statergbwstrip));
 
   /* Добавил подсветку*/
-  digitalWrite(LEDuvlight, (!stateuvlight));
-  digitalWrite(LEDdiscoball, (!statediscoball));
-  digitalWrite(LEDstrobeRB, (!statestrobeRB));
-  digitalWrite(LEDstrobeW, (!statestrobeW));
-  digitalWrite(LEDlightmusic1, (!statelightmusic1));
-  digitalWrite(LEDlightmusic2, (!statelightmusic2));
-  digitalWrite(LEDrgbwstrip2, (!statergbwstrip2));
-  digitalWrite(LEDrezerv, (!staterezerv));
+  digitalWrite(LEDUVLIGHT, (!stateuvlight));
+  digitalWrite(LEDDISCOBALL, (!statediscoball));
+  digitalWrite(LEDSTROBERB, (!statestrobeRB));
+  digitalWrite(LEDSTROBEW, (!statestrobeW));
+  digitalWrite(LEDLIGHTMUSIC1, (!statelightmusic1));
+  digitalWrite(LEDLIGHTMUSIC2, (!statelightmusic2));
+  digitalWrite(LEDRGBWSTRIP2, (!statergbwstrip2));
+  digitalWrite(LEDREZERV, (!staterezerv));
 
 
 
